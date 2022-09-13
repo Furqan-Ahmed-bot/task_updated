@@ -6,7 +6,14 @@ import 'screenOne.dart';
 import 'screenTwo.dart';  
   
 class Dashboard extends StatefulWidget {
-  const Dashboard({ Key? key }) : super(key: key);
+  
+  final name;
+ 
+  final username;
+  final address;
+
+
+   Dashboard(   this.name,  this.username,  this.address );
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -19,15 +26,18 @@ class _DashboardState extends State<Dashboard> {
       home: DefaultTabController(  
         length: 2,  
         child: Scaffold(  
-          drawer: Drawer(),
+          drawer: Drawer(
+          
+          ),
           appBar: AppBar(  
+            backgroundColor: Color(0xFFE43228),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child: Icon(Icons.search , size: 30,),
               ), 
             ],
-            title: Text('Flutter Tabs Demo'),  
+            title: Text('Lorem Lpsum'),  
             bottom: TabBar(  
               tabs: [  
                 Tab(text: "ALL POSTS"),  
@@ -36,14 +46,21 @@ class _DashboardState extends State<Dashboard> {
             ),  
           ),  
           body: TabBarView(  
+            
             children: [  
               FirstScreen(),  
-              SecondScreen(),  
+              SecondScreen(name: widget.name , username:  widget.username, address: widget.address,),  
             ],  
-          ),  
+          ), floatingActionButton: FloatingActionButton(
+            backgroundColor: Color(0xFFE43228),
+        onPressed: (){},
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+//       ), 
+          
         ),  
       ),  
-    );  
+    ));  
   }  
 
 }  

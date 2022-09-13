@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, non_constant_identifier_names, use_key_in_widget_constructors, must_call_super, sized_box_for_whitespace, deprecated_member_use, duplicate_ignore
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, non_constant_identifier_names, use_key_in_widget_constructors, must_call_super, sized_box_for_whitespace, deprecated_member_use, duplicate_ignore, unused_local_variable, avoid_print
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'Dashboard.dart';
+import 'providers.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -52,16 +54,10 @@ class _LoginState extends State<Login> {
           content: Text("Password Is Empty"),
         ),
       );
-    } else if (passwordController.text.length < 8) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Password Is Too Short"),
-        ),
-      );
+    } 
+    else {
+      LoginUser();
     }
-    // else {
-    //   LoginUser();
-    // }
   }
 
   Widget build(BuildContext context) {
@@ -183,7 +179,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       onPressed: () {
-                        LoginUser();
+                      vaildation();
                         // vaildation().then((_) {
                         //   LoginUser().whenComplete(() {
                         //     setState(() {
@@ -211,6 +207,9 @@ class _LoginState extends State<Login> {
       'username': passwordController.text,
     };
     var result = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    // for (int i = 0; i < result.body.length; i++){
+
+    // }
     var msg = jsonDecode(result.body);
     print(result);
     if (result.statusCode == 200) {
@@ -218,9 +217,19 @@ class _LoginState extends State<Login> {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Incorrect Email or Password!')));
       } else {
+        // Provider.of<UserPovider>(context, listen: false).setUser(result.body);
         print(result.body);
         Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => Dashboard()));
+          MaterialPageRoute(builder: (context) => Dashboard(
+           
+            msg[0]['name'],
+             msg[0]['username'],
+                msg[0]['address'],
+
+           
+            
+            ),
+          ));
 
 
       }

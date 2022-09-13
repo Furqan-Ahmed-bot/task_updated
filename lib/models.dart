@@ -1,54 +1,126 @@
+// ignore_for_file: unnecessary_this, unnecessary_new, prefer_collection_literals
+
 import 'dart:convert';
 
-class User {
-  final String user_id;
-  final String name;
-  final String username;
-  final String email;
+class UserModel {
+  String? id;
+  String? name;
+  String? username;
+  String? email;
+  Address? address;
+  String? phone;
+  String? website;
+  Company? company;
 
-  final String address;
-  
-  
+  UserModel(
+      {this.id,
+      this.name,
+      this.username,
+      this.email,
+      this.address,
+      this.phone,
+      this.website,
+      this.company});
 
-  User({
-    required this.user_id,
-    required this.name,
-    required this.username,
-    required this.email,
-    required this.address,
-    
-    
-  });
+  UserModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    username = json['username'];
+    email = json['email'];
+    address =
+        json['address'] != null ? new Address.fromJson(json['address']) : null;
+    phone = json['phone'];
+    website = json['website'];
+    company =
+        json['company'] != null ? new Company.fromJson(json['company']) : null;
+  }
+  //  String toJson() => json.encode(toJson());
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['username'] = this.username;
+    data['email'] = this.email;
+    if (this.address != null) {
+      data['address'] = this.address!.toJson();
+    }
+    data['phone'] = this.phone;
+    data['website'] = this.website;
+    if (this.company != null) {
+      data['company'] = this.company!.toJson();
+    }
+    return data;
+  }
+}
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id' : user_id,
-      'name' : name,
-      'username' : username,
-      'email' : email,
-      'address' : address,
+class Address {
+  String? street;
+  String? suite;
+  String? city;
+  String? zipcode;
+  Geo? geo;
 
+  Address({this.street, this.suite, this.city, this.zipcode, this.geo});
 
-
-    };
+  Address.fromJson(Map<String, dynamic> json) {
+    street = json['street'];
+    suite = json['suite'];
+    city = json['city'];
+    zipcode = json['zipcode'];
+    geo = json['geo'] != null ? new Geo.fromJson(json['geo']) : null;
   }
 
-  factory User.fromMap(Map<String, dynamic> map){
-    return User(
-    user_id: map['user_id'], 
-    name: map['name'],
-    username: map['username'], 
-    email: map['email'], 
-    address: map['address'], 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['street'] = this.street;
+    data['suite'] = this.suite;
+    data['city'] = this.city;
+    data['zipcode'] = this.zipcode;
+    if (this.geo != null) {
+      data['geo'] = this.geo!.toJson();
+    }
+    return data;
+  }
+}
 
-    );
+class Geo {
+  String? lat;
+  String? lng;
+
+  Geo({this.lat, this.lng});
+
+  Geo.fromJson(Map<String, dynamic> json) {
+    lat = json['lat'];
+    lng = json['lng'];
   }
 
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['lat'] = this.lat;
+    data['lng'] = this.lng;
+    return data;
+  }
+}
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+class Company {
+  String? name;
+  String? catchPhrase;
+  String? bs;
 
+  Company({this.name, this.catchPhrase, this.bs});
 
+  Company.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    catchPhrase = json['catchPhrase'];
+    bs = json['bs'];
+  }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['catchPhrase'] = this.catchPhrase;
+    data['bs'] = this.bs;
+    return data;
+  }
 }
