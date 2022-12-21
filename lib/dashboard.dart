@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, file_names
 
-import 'package:flutter/material.dart';  
+import 'package:flutter/material.dart';
+import 'package:job_task/login.dart';  
 
 import 'screenOne.dart';
 import 'screenTwo.dart';  
@@ -11,6 +12,7 @@ class Dashboard extends StatefulWidget {
  
   final username;
   final address;
+  
 
 
    Dashboard(   this.name,  this.username,  this.address );
@@ -27,6 +29,30 @@ class _DashboardState extends State<Dashboard> {
         length: 2,  
         child: Scaffold(  
           drawer: Drawer(
+            child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFFE43228),
+              ),
+              child: Text('Lorem Lpsum'),
+            ),
+            ListTile(
+              title: const Text('Logout'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
+                // Update the state
+                //Navigator of the app
+                // ...
+                // Then close the drawer
+              
+              },
+            ),
+          
+          ],
+        )
           
           ),
           appBar: AppBar(  

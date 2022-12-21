@@ -3,23 +3,16 @@
 
 import 'package:flutter/material.dart';
 
-import 'models.dart';
-
 class UserPovider extends ChangeNotifier {
-  UserModel _user = UserModel(
-      id: '',
-      name: '',
-      username: '',
-      email: '',
-      // address: '',
-      phone: '',
-      website: '');
 
-      UserModel get user => _user;
+   List _rolesData = [];
+   List<dynamic> get rolesData => _rolesData;
 
-      void setUser(user){
-        _user = UserModel.fromJson(user);
-        notifyListeners();
+   Future<void> setRolesData(rolesData) async {
+    _rolesData = await rolesData;
+    notifyListeners();
+  }
 
-      }
-}
+ 
+ }
+
